@@ -1,4 +1,5 @@
 import { Head, useForm } from '@inertiajs/react';
+import { confirmPayment, invoice, updateStatus } from '@/actions/App/Http/Controllers/Admin/OrderController';
 import AdminPageHeader from '@/components/admin/admin-page-header';
 import StatusBadge from '@/components/storefront/status-badge';
 import { Button } from '@/components/ui/button';
@@ -75,11 +76,11 @@ export default function AdminOrderShow({ order }: { order: OrderRecord }) {
                             {order.scheduled_at ? <div>Jadwal: <span className="font-medium text-emerald-900">{new Date(order.scheduled_at).toLocaleString('id-ID')}</span></div> : null}
                             {order.dine_in_area ? <div>Area: <span className="font-medium text-emerald-900">{order.dine_in_area}</span></div> : null}
                         </div>
-                        <a href={`/admin/orders/${order.id}/invoice`} target="_blank" rel="noreferrer" className="mt-3 inline-block text-emerald-700 hover:underline">Cetak Invoice PDF</a>
+                        <a href={invoice({ order: order.id }).url} target="_blank" rel="noreferrer" className="mt-3 inline-block text-emerald-700 hover:underline">Cetak Invoice PDF</a>
                     </div>
 
                     <form onSubmit={(e) => {
- e.preventDefault(); statusForm.patch(`/admin/orders/${order.id}/status`, { preserveScroll: true }); 
+ e.preventDefault(); statusForm.post(updateStatus({ order: order.id }).url, { preserveScroll: true }); 
 }} className="space-y-2 rounded-2xl border border-emerald-100 bg-white p-5">
                         <h2 className="text-sm font-semibold text-emerald-900">Update Status</h2>
                         <div>
@@ -97,7 +98,7 @@ export default function AdminOrderShow({ order }: { order: OrderRecord }) {
 
                     {order.payment_status !== 'paid' ? (
                         <form onSubmit={(e) => {
- e.preventDefault(); paymentForm.post(`/admin/orders/${order.id}/payment-confirm`, { preserveScroll: true }); 
+ e.preventDefault(); paymentForm.post(confirmPayment({ order: order.id }).url, { preserveScroll: true }); 
 }} className="space-y-2 rounded-2xl border border-emerald-100 bg-white p-5">
                             <h2 className="text-sm font-semibold text-emerald-900">Konfirmasi Pembayaran Manual</h2>
                             <div>
