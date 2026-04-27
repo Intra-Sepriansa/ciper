@@ -13,14 +13,14 @@ class InvoiceService
 {
     public function generateQrDataUri(string $payload): string
     {
-        $result = Builder::create()
-            ->writer(new PngWriter)
-            ->data($payload)
-            ->size(220)
-            ->margin(8)
-            ->build();
+        $builder = new Builder(
+            writer: new PngWriter,
+            data: $payload,
+            size: 220,
+            margin: 8,
+        );
 
-        return $result->getDataUri();
+        return $builder->build()->getDataUri();
     }
 
     public function streamPdf(Order $order): Response
