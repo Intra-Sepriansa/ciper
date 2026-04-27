@@ -26,50 +26,52 @@ export default function HomeIndex({ popular, familyPackages, categories, gallery
                 <meta name="keywords" content={s.seo_meta_keywords ?? ''} />
             </Head>
 
-            <section className="relative overflow-hidden">
-                <div className="absolute inset-0 -z-10 bg-gradient-to-br from-emerald-50 via-emerald-100/60 to-sky-50" />
-                <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 md:grid-cols-2 md:py-20">
-                    <div className="space-y-5">
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-emerald-700 shadow-sm ring-1 ring-emerald-100">
-                            <Star className="size-3.5 fill-amber-400 stroke-amber-500" />
-                            {highlights.rating} • {highlights.reviews_count} ulasan Google
+            <section className="relative h-[calc(100vh-4rem)] min-h-[560px] w-full overflow-hidden">
+                <img
+                    src={storageUrl(gallery[0]?.image_path, '/storage/hero/riverside-cover.jpg')}
+                    alt={gallery[0]?.title ?? 'Cidurian Riverside'}
+                    className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/70" />
+
+                <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 text-center">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white ring-1 ring-white/30 backdrop-blur">
+                        <Star className="size-3.5 fill-amber-300 stroke-amber-300" />
+                        {highlights.rating} • {highlights.reviews_count} ulasan Google
+                    </span>
+
+                    <h1 className="mt-6 max-w-5xl text-4xl font-bold leading-[1.05] tracking-tight text-white drop-shadow-lg sm:text-5xl md:text-6xl lg:text-7xl">
+                        Makan Nyaman di Pinggir Sungai Cidurian
+                    </h1>
+
+                    <p className="mt-5 max-w-2xl text-base text-white/85 sm:text-lg">
+                        Pesan menu favorit untuk dine-in, takeaway, atau delivery. Suasana adem, harga ramah, langsung dari dapur kami.
+                    </p>
+
+                    <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-white/95 p-1.5 pl-6 shadow-2xl shadow-emerald-950/30">
+                        <span className="grid size-9 place-items-center rounded-full bg-emerald-500/15">
+                            <Utensils className="size-4 text-emerald-700" />
                         </span>
-                        <h1 className="text-4xl font-semibold leading-tight text-emerald-950 md:text-5xl">
-                            Makan Nyaman di Pinggir <span className="text-emerald-600">Sungai Cidurian</span>
-                        </h1>
-                        <p className="max-w-md text-base text-emerald-900/80">
-                            Pesan menu favorit untuk dine-in, takeaway, atau delivery. Suasana adem, harga ramah, langsung dari dapur kami.
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                            <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-700">
-                                <Link href="/menu">Pesan Sekarang <ArrowRight className="ml-1 size-4" /></Link>
-                            </Button>
-                            <Button asChild size="lg" variant="outline" className="border-emerald-200 text-emerald-800 hover:bg-emerald-50">
-                                <Link href="/menu">Lihat Menu</Link>
-                            </Button>
-                        </div>
-                        <div className="flex flex-wrap gap-x-6 gap-y-2 pt-4 text-sm text-emerald-900/80">
-                            <span className="inline-flex items-center gap-1.5"><Utensils className="size-4 text-emerald-600" /> Dine-in • Takeaway • Delivery</span>
-                            <span className="inline-flex items-center gap-1.5"><MapPin className="size-4 text-emerald-600" /> Jasinga, Bogor</span>
-                            <span className="inline-flex items-center gap-1.5"><Clock className="size-4 text-emerald-600" /> {s.store_open_hours ?? '09.00 - 22.00'}</span>
-                        </div>
-                        <div className="flex flex-wrap gap-3 pt-2 text-sm">
-                            <span className="rounded-full bg-white/90 px-3 py-1 ring-1 ring-emerald-100">Mulai {formatRupiah(highlights.price_from)}</span>
-                            <span className="rounded-full bg-white/90 px-3 py-1 ring-1 ring-emerald-100">Menu andalan: Gurame Asam Manis</span>
-                        </div>
+                        <Link
+                            href="/menu"
+                            className="text-sm font-semibold tracking-wide text-emerald-950 sm:text-base"
+                        >
+                            LIHAT MENU
+                        </Link>
+                        <Link
+                            href="/menu"
+                            aria-label="Pesan sekarang"
+                            className="grid size-11 place-items-center rounded-full bg-emerald-50 text-emerald-900 transition hover:bg-emerald-100"
+                        >
+                            <ArrowRight className="size-5" />
+                        </Link>
                     </div>
-                    <div className="relative">
-                        <div className="overflow-hidden rounded-3xl ring-1 ring-emerald-100 bg-emerald-50 aspect-[4/3] shadow-xl shadow-emerald-900/5">
-                            <img
-                                src={storageUrl(gallery[0]?.image_path, '/storage/hero/riverside-cover.jpg')}
-                                alt={gallery[0]?.title ?? 'Cidurian Riverside'}
-                                className="h-full w-full object-cover"
-                            />
-                        </div>
-                        <div className="absolute -bottom-4 left-6 hidden rounded-2xl border border-emerald-100 bg-white/95 px-4 py-3 text-sm shadow-md md:block">
-                            <div className="font-semibold text-emerald-900">Spot favorit keluarga</div>
-                            <div className="text-emerald-900/70">Lesehan pinggir sungai, area indoor, dan riverside.</div>
-                        </div>
+
+                    <div className="mt-10 hidden flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-white/80 md:flex">
+                        <span className="inline-flex items-center gap-1.5"><Utensils className="size-4" /> Dine-in • Takeaway • Delivery</span>
+                        <span className="inline-flex items-center gap-1.5"><MapPin className="size-4" /> Jasinga, Bogor</span>
+                        <span className="inline-flex items-center gap-1.5"><Clock className="size-4" /> {s.store_open_hours ?? '09.00 - 22.00'}</span>
+                        <span className="inline-flex items-center gap-1.5"><Phone className="size-4" /> Mulai {formatRupiah(highlights.price_from)}</span>
                     </div>
                 </div>
             </section>
