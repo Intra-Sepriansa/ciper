@@ -2,11 +2,15 @@ import { createInertiaApp } from '@inertiajs/react';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { initializeTheme } from '@/hooks/use-appearance';
+import AdminLayout from '@/layouts/admin-layout';
 import AppLayout from '@/layouts/app-layout';
 import AuthLayout from '@/layouts/auth-layout';
 import SettingsLayout from '@/layouts/settings/layout';
+import StorefrontLayout from '@/layouts/storefront-layout';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Cidurian Riverside';
+
+const STOREFRONT_PREFIXES = ['home/', 'menu/', 'cart/', 'checkout/', 'tracking/', 'reservation/', 'pages/'];
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -14,6 +18,11 @@ createInertiaApp({
         switch (true) {
             case name === 'welcome':
                 return null;
+            case name === 'home/index':
+            case STOREFRONT_PREFIXES.some((prefix) => name.startsWith(prefix)):
+                return StorefrontLayout;
+            case name.startsWith('admin/'):
+                return AdminLayout;
             case name.startsWith('auth/'):
                 return AuthLayout;
             case name.startsWith('settings/'):
@@ -32,9 +41,8 @@ createInertiaApp({
         );
     },
     progress: {
-        color: '#4B5563',
+        color: '#10b981',
     },
 });
 
-// This will set light / dark mode on load...
 initializeTheme();
