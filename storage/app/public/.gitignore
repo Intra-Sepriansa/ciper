@@ -1,2 +1,8 @@
 *
 !.gitignore
+!menu/
+!menu/*
+!gallery/
+!gallery/*
+!hero/
+!hero/*

@@ -61,7 +61,7 @@ export default function HomeIndex({ popular, familyPackages, categories, gallery
                     <div className="relative">
                         <div className="overflow-hidden rounded-3xl ring-1 ring-emerald-100 bg-emerald-50 aspect-[4/3] shadow-xl shadow-emerald-900/5">
                             <img
-                                src={storageUrl(gallery[0]?.image_path, 'https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&w=1200&q=70')}
+                                src={storageUrl(gallery[0]?.image_path, '/storage/hero/riverside-cover.jpg')}
                                 alt={gallery[0]?.title ?? 'Cidurian Riverside'}
                                 className="h-full w-full object-cover"
                             />
