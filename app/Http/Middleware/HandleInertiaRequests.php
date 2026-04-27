@@ -32,6 +32,8 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
                 'info' => fn () => $request->session()->get('info'),
+                'reservation_number' => fn () => $request->session()->get('reservation_number'),
+                'reservation_area' => fn () => $request->session()->get('reservation_area'),
             ],
             'storefront' => fn () => Setting::publicSettings(),
             'cart_count' => fn () => (int) $request->session()->get('cart_count', 0),

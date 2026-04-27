@@ -37,6 +37,8 @@ export type SharedFlash = {
     success?: string | null;
     error?: string | null;
     info?: string | null;
+    reservation_number?: string | null;
+    reservation_area?: string | null;
 };
 
 export type StorefrontPageProps = {
