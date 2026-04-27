@@ -17,9 +17,11 @@ class MenuController extends Controller
             'q' => ['nullable', 'string', 'max:120'],
             'category' => ['nullable', 'string'],
             'sort' => ['nullable', 'in:price_asc,price_desc,popular,newest'],
-            'available_only' => ['nullable', 'boolean'],
             'min_price' => ['nullable', 'integer', 'min:0'],
             'max_price' => ['nullable', 'integer', 'min:0'],
+            'in_stock' => ['nullable', 'boolean'],
+            'promo' => ['nullable', 'boolean'],
+            'popular' => ['nullable', 'boolean'],
         ]);
 
         $query = Product::query()
@@ -45,6 +47,20 @@ class MenuController extends Controller
             $query->where('price', '<=', $validated['max_price']);
         }
 
+        if (! empty($validated['in_stock'])) {
+            $query->where(function ($q): void {
+                $q->where('track_stock', false)->orWhere('stock', '>', 0);
+            });
+        }
+
+        if (! empty($validated['promo'])) {
+            $query->whereNotNull('discount_price')->whereColumn('discount_price', '<', 'price');
+        }
+
+        if (! empty($validated['popular'])) {
+            $query->where('is_popular', true);
+        }
+
         $sort = $validated['sort'] ?? 'popular';
         match ($sort) {
             'price_asc' => $query->orderBy('price'),
@@ -60,10 +76,20 @@ class MenuController extends Controller
             ->orderBy('sort_order')
             ->get(['id', 'name', 'slug', 'icon']);
 
+        $priceRange = Product::query()
+            ->where('is_available', true)
+            ->selectRaw('MIN(price) as min_price, MAX(price) as max_price')
+            ->first();
+
         return Inertia::render('menu/index', [
             'products' => $products,
             'categories' => $categories,
             'filters' => $validated,
+            'totalCount' => $products->total(),
+            'priceRange' => [
+                'min' => (int) ($priceRange->min_price ?? 0),
+                'max' => (int) ($priceRange->max_price ?? 100000),
+            ],
         ]);
     }
 
