@@ -141,3 +141,84 @@
         @apply bg-background text-foreground;
     }
 }
+
+/* reactbits: shiny-text */
+.reactbits-shiny {
+    color: #ffffff;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 255, 255, 0) 60%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    display: inline-block;
+    animation: reactbits-shiny-move linear infinite;
+}
+
+.reactbits-shiny-disabled {
+    animation: none;
+}
+
+@keyframes reactbits-shiny-move {
+    0% {
+        background-position: 100%;
+    }
+    100% {
+        background-position: -100%;
+    }
+}
+
+/* reactbits: spotlight-card */
+.reactbits-spotlight {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.reactbits-spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        var(--spotlight-color, rgba(16, 185, 129, 0.25)),
+        transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.reactbits-spotlight:hover::before {
+    opacity: 1;
+}
+
+.reactbits-spotlight > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* reactbits: glare-hover */
+.reactbits-glare {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.reactbits-glare-layer {
+    position: absolute;
+    inset: 0;
+    background: var(--glare-bg);
+    transform: translateX(-100%);
+    transition: transform var(--glare-duration) ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.reactbits-glare:hover .reactbits-glare-layer {
+    transform: translateX(100%);
+}

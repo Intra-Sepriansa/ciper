@@ -18,34 +18,6 @@ Use `search-docs` for detailed Tailwind CSS v4 patterns and documentation.
 - Offer to extract repeated patterns into components that match the project's conventions (e.g., Blade, JSX, Vue).
 - Consider class placement, order, priority, and defaults. Remove redundant classes, add classes to parent or child elements carefully to reduce repetition, and group elements logically.
 
-## Project UI Direction
-
-For this repository, default customer-facing UI to the Cidurian Riverside restaurant commerce direction:
-
-- Mobile-first, premium, clean, natural, warm, and efficient.
-- Brand palette: emerald green, river blue, warm cream, dark charcoal.
-- Use short Indonesian microcopy and clear ordering actions.
-- Make food/place imagery prominent; avoid generic abstract decoration.
-- Keep customer flows spacious and touch-friendly, but keep admin dashboards denser and operational.
-- Use glassmorphism only lightly for overlays or sticky surfaces; avoid noisy gradients and decorative blobs.
-- Reserve cards for menu items, order summaries, repeated records, modals, and admin widgets.
-- Use stable dimensions for menu cards, cart rows, checkout summary, dashboard cards, and table controls so text and dynamic state changes do not shift the layout.
-
-Suggested CSS-first tokens:
-
-```css
-@theme {
-  --color-river-50: #eff8fb;
-  --color-river-600: #167c95;
-  --color-river-800: #0d4f63;
-  --color-emerald-brand: #057a55;
-  --color-cream-warm: #fff7e8;
-  --color-charcoal: #17201d;
-}
-```
-
-Use these tokens through semantic component classes or direct utilities once defined in the project's CSS.
-
 ## Tailwind CSS v4 Specifics
 
 - Always use Tailwind CSS v4 and avoid deprecated utilities.
@@ -145,5 +117,3 @@ If existing pages and components support dark mode, new pages and components mus
 - Trying to use `tailwind.config.js` instead of CSS `@theme` directive
 - Using margins for spacing between siblings instead of gap utilities
 - Forgetting to add dark mode variants when the project uses dark mode
-- Creating customer-facing pages that read like generic SaaS templates instead of a food ordering experience
-- Letting long menu names, prices, badges, or admin filters resize fixed UI controls
